@@ -1,7 +1,6 @@
 # Twitter in Postgres
 [![tests_denormalized](https://github.com/KaiYeung921/twitter_postgres/actions/workflows/tests_denormalized.yml/badge.svg)](https://github.com/KaiYeung921/twitter_postgres/actions/workflows/tests_denormalized.yml)
-[![](https://github.com/mikeizbicki/twitter_postgres/workflows/tests_normalized/badge.svg)](https://github.com/mikeizbicki/twitter_postgres/actions?query=workflow%3Atests)
-
+[![tests_normalized](https://github.com/KaiYeung921/twitter_postgres/actions/workflows/tests_normalized.yml/badge.svg)](https://github.com/KaiYeung921/twitter_postgres/actions/workflows/tests_normalized.yml)
 You will repeat the Twitter/MapReduce assignment using Postgres.
 Because this assignment will involve many new programming concepts,
 it will be spread out over several assignments.
