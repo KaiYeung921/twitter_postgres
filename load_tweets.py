@@ -231,14 +231,18 @@ def insert_tweet(connection,tweet):
         # This means that every "in_reply_to_user_id" field must reference a valid entry in the users table.
         # If the id is not in the users table, then you'll need to add it in an "unhydrated" form.
         if tweet.get('in_reply_to_user_id',None) is not None:
-            sql=sqlalchemy.sql.text('''
-                ''')
+            sql = sqlalchemy.sql.text('''
+                INSERT INTO users (id_users) VALUES (:id_users)
+                ON CONFLICT DO NOTHING
+                    ''')
+            connection.execute(sql, {'id_users': tweet['in_reply_to_user_id']})
 
         # insert the tweet
         sql=sqlalchemy.sql.text(f'''
         INSERT into tweets(
         id_tweets,
         id_users,
+        created_at,
         in_reply_to_status_id,
         in_reply_to_user_id,
         quoted_status_id,
@@ -258,6 +262,7 @@ def insert_tweet(connection,tweet):
         VALUES(
         :id_tweets,
         :id_users,
+        :created_at,
         :in_reply_to_status_id,
         :in_reply_to_user_id,
         :quoted_status_id,
@@ -272,7 +277,7 @@ def insert_tweet(connection,tweet):
         :state_code,
         :lang,
         :place_name,
-        :ST_GeomFromText(:geo, 4326))
+        ST_GeomFromText(:geo, 4326))
             ''')
 
         connection.execute(sql, {
