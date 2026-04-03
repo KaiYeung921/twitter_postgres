@@ -103,7 +103,7 @@ def insert_tweet(connection,tweet):
 
     # insert tweet within a transaction;
     # this ensures that a tweet does not get "partially" loaded
-    with connection.begin() as trans:
+    with connection.begin_nested() as trans:
 
         ########################################
         # insert into the users table
@@ -171,7 +171,7 @@ def insert_tweet(connection,tweet):
         'name': remove_nulls(tweet['user']['name']),
         'location': remove_nulls(tweet['user']['location']),
         'description': remove_nulls(tweet['user']['description']),
-        'withheld_in_countries': tweet['user'].get('withheld_in_countries', None})
+        'withheld_in_countries': tweet['user'].get('withheld_in_countries', None)})
 
         
         

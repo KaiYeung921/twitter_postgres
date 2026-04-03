@@ -18,7 +18,9 @@ done
 echo 'load denormalized'
 for file in $files; do
     # use SQL's COPY command to load data into pg_denormalized
-    unzip -p $file | psql postgresql://postgres:pass@localhost:0921/postgres \
-    -c "COPY tweets_jsonb (data) FROM STDIN"
+    unzip -p $file | sed 's/\\u0000//g' | sed 's/\\/\\\\/g' > tweets_temp.jsonl
+    psql postgresql://postgres:pass@localhost:1291/postgres \
+    -c "COPY tweets_jsonb (data) FROM '/tmp/db/tweets_temp.jsonl'"
+rm tweets_temp.jsonl
 
 done
