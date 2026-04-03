@@ -451,6 +451,7 @@ if __name__ == '__main__':
                         # load and insert the tweet
                         tweet = json.loads(line)
                         insert_tweet(connection,tweet)
+                        connection.commit()
 
                         # print message
                         if i%args.print_every==0:
